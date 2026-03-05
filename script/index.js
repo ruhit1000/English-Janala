@@ -3,8 +3,14 @@ const createElements = (arr) => {
     return htmlElements.join(' ')
 }
 
+function pronounceWord(word) {
+    const utterance = new SpeechSynthesisUtterance(word);
+    utterance.lang = "en-EN";
+    window.speechSynthesis.speak(utterance);
+}
+
 const manageSpinner = (status) => {
-    if(status) {
+    if (status) {
         document.getElementById('spinner').classList.remove('hidden');
         document.getElementById('word-container').classList.add('hidden');
     } else {
@@ -96,7 +102,7 @@ const displayLevelWord = (words) => {
             <h2 class="font-bangla font-semibold text-2xl">"${word.meaning ? word.meaning : 'অর্থ পাওয়া যায়নি'} / ${word.pronunciation ? word.pronunciation : 'pronunciation পাওয়া যায়নি'}"</h2>
             <div class="flex justify-between mt-10">
                 <button onclick="loadWordDetail(${word.id})" class="btn p-4 bg-[#1a91ff1a] hover:bg-[#1a90ff86] w-14 h-14 rounded-lg"><i class="fa-solid fa-circle-info"></i></button>
-                <button class=" btn p-4 bg-[#1a91ff1a] hover:bg-[#1a90ff86] w-14 h-14 rounded-lg"><i class="fa-solid fa-volume-high"></i></button>
+                <button onclick="pronounceWord('${word.word}')" class=" btn p-4 bg-[#1a91ff1a] hover:bg-[#1a90ff86] w-14 h-14 rounded-lg"><i class="fa-solid fa-volume-high"></i></button>
             </div>
         `
         wordContainer.append(card)
@@ -106,3 +112,21 @@ const displayLevelWord = (words) => {
 
 
 loadLessons()
+
+document.getElementById('btn-search').addEventListener('click', () => {
+    const input = document.getElementById('input-search');
+    const searchValue = input.value.trim().toLowerCase();
+
+    const lessonBtns = document.getElementsByClassName('lesson-btn')
+    for (const btn of lessonBtns) {
+        btn.classList.remove('btn-active');
+    }
+
+    fetch('https://openapi.programming-hero.com/api/words/all')
+        .then((res) => res.json())
+        .then((data) => {
+            const allWords = data.data;
+            const filterWords = allWords.filter(word => word.word.toLowerCase().includes(searchValue))
+            displayLevelWord(filterWords)
+        })
+})
