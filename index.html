@@ -77,7 +77,8 @@
         </div>
     </header>
 
-    <section class="flex flex-col-reverse sm:flex-row gap-5 justify-between items-center my-5 w-[95%] 2xl:container mx-auto">
+    <section
+        class="flex flex-col-reverse sm:flex-row gap-5 justify-between items-center my-5 w-[95%] 2xl:container mx-auto">
         <div class="content text-center sm:text-start">
             <h1 class="font-bold text-5xl mb-6"><span class="text-[#00BCFF]">English</span> is Easy!!</h1>
             <p class="font-bangla font-medium text-2xl">আজ থেকেই আপনার ভাষা শেখার যাত্রা শুরু করুন। আপনি যদি নতুন হন
@@ -96,16 +97,31 @@
     </section>
 
     <section>
-        <h2 class="font-bold text-4xl mb-6 text-center"><span class="text-[#00BCFF]">Let's</span> Learn Vocabularies</h2>
+        <h2 class="font-bold text-4xl mb-6 text-center"><span class="text-[#00BCFF]">Let's</span> Learn Vocabularies
+        </h2>
         <div id="level-container" class="flex flex-wrap justify-center gap-5"></div>
     </section>
 
-    <section id="word-container" class="bg-gray-100 p-10 w-11/12 mx-auto my-10 rounded-xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
+    <section id="spinner" class="flex justify-center items-center py-10 hidden">
+        <span class="loading loading-bars loading-xl"></span>
+    </section>
+
+    <section id="word-container"
+        class="bg-gray-100 p-10 w-11/12 mx-auto my-10 rounded-xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
         <div class="text-center col-span-full">
             <p class="font-bangla text-sm mb-3">আপনি এখনো কোন Lesson Select করেন নি</p>
             <h2 class="font-bangla text-4xl font-medium">একটি Lesson Select করুন।</h2>
         </div>
     </section>
+
+    <dialog id="word_modal" class="modal">
+        <div class="modal-box">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            </form>
+            <div id="details-container" class="space-y-5"></div>
+        </div>
+    </dialog>
 
     <script src="./script/index.js"></script>
 </body>
